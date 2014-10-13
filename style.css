@@ -1,0 +1,79 @@
+body, input{
+    font-family: "Helvetica Neue Light" "Helvetica Neue" Helvetica Calibri Arial;
+    font-size: 1em;
+}
+body{
+    margin: 0;
+    padding: 0;
+}
+
+div.controls{
+    float: right;
+    margin: 5px 5px 0 0;
+}
+
+div.controls input[type="button"].active{
+    background-color: #222222;
+    border-color: #222222;
+}
+
+input{
+    padding: 10px;
+    border: 1px solid #106EC5;
+    border-radius: 3px;
+    -webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
+    transition: all .2s linear;
+}
+input:focus{
+    outline: none;
+}
+
+input[type="text"]:focus, input[type="number"]:focus{
+    border-color: #222222;
+}
+input[type="button"]{
+    background-color: #106EC5;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+input[type="button"]:hover{
+    background-color: #222222;
+    border-color: #222222;
+}
+input[type="button"].del-vector{
+    padding: 10px 14px;
+}
+
+header{
+    position: fixed;
+    width: 100%;
+    height: 50px;
+    background: #eee;
+}
+
+div[app-modal]{
+    padding: 10px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    box-shadow: 5px 5px 5px #ccc;
+    display: none;
+    position: fixed;
+    top: 60px;
+    right: 10px;
+    background-color: #fff;
+    z-index: 1;
+}
+
+div[app-modal] > img#image{
+    width: 200px;
+}
+
+div.config{
+    float: right;
+    margin-left: 20px;
+}
+
+canvas{
+    margin-top: 60px;
+}
