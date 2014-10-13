@@ -5,7 +5,7 @@ vectors.config = {
             res = [];
         for(var i = 0; i < vs.length; i++){
             var ps = vs[i].split(",");
-            if(!ps.length !== 3){ throw "Invalid config"; }
+            if(ps.length !== 3){ throw "Invalid config"; }
             res.push({
                 l: parseFloat(ps[0]),
                 r: parseFloat(ps[1]),
