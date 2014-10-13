@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="vectors">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <link rel="stylesheet" href="style.css" />
+
+    <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="config-parser.js"></script>
+    <script type="text/javascript" src="services.js"></script>
+    <script type="text/javascript" src="controllers.js"></script>
+    <script type="text/javascript" src="directives.js"></script>
+
+</head>
+<body ng-controller="appCtrl">
+    <header>
+        <div class="controls">
+            <input type="button" ng-click="toggleConfig()" value="Configure" ng-class="{active: showSettings}" />
+            <input type="button" ng-click="clearPoints()" value="Clear Lines" />
+            <input type="button" ng-click="toggleImage()" value="Get Image" ng-class="{active: showImage}" />
+        </div>
+        <div app-modal="showImage">
+            <img id="image" />
+        </div>
+        <div app-modal="showSettings">
+            <table ng-show="vectors.length">
+                <tr>
+                    <th>length (% of height)</th>
+                    <th>rot. per frame</th>
+                    <th>color</th>
+                </tr>
+                <tr ng-repeat="v in vectors">
+                    <td><input type="number" ng-model="v.l" /></td>
+                    <td><input type="number" ng-model="v.r" /></td>
+                    <td><input type="text" ng-model="v.c" /></td>
+                    <td><input class="del-vector" type="button" value="X" ng-click="deleteVector($index)" /> </td>
+                </tr>
+            </table>
+            <input type="button" ng-click="addVector()" value="Add Vector" />
+            <div class="config">
+                <input type="text" ng-model="config" />
+                <input type="button" ng-click="loadConfig()" value="Load Config" />
+            </div>
+        </div>
+    </header>
+    <canvas id="canvas"></canvas>
+</body>
+</html>
