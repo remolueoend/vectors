@@ -87,7 +87,7 @@ vectors.app.controller('appCtrl', ['$scope', 'drawSrv', function($scope, drawSrv
     $scope.config = "";
 
     $scope.addVector = function(){
-        $scope.vectors.push(new Vector(20, 0.01, "blue"));
+        $scope.vectors.push(new Vector(20, 1, "blue"));
     };
 
     $scope.deleteVector = function(index){
