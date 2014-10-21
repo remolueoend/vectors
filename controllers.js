@@ -38,7 +38,7 @@ vectors.app.controller('appCtrl', ['$scope', 'drawSrv', function($scope, drawSrv
         },
 
         rotate: function(){
-            this.a += this.r;
+            this.a += this.r / 100;
         },
 
         compare: function(v){
