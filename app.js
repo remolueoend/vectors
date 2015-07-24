@@ -2,8 +2,12 @@
  * Created by remo on 12/10/14.
  */
 
-'use strict';
+(function(window, angular){
+    
+    'use strict';
 
-var vectors = vectors || {};
-
-vectors.app = angular.module('vectors', []);
+    window.vectors = window.vectors || {};
+    
+    window.vectors.app = angular.module('vectors', []);
+    
+})(window, angular);
