@@ -7,7 +7,6 @@
     'use strict';
 
     window.vectors = window.vectors || {};
-    
     window.vectors.app = angular.module('vectors', []);
     
 })(window, angular);

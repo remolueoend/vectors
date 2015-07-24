@@ -44,7 +44,7 @@
                         res += ";";
                     }
                 }
-                return vectors.config.currentVersion + "_" + res;
+                return this.currentVersion + "_" + res;
             }
         };
     }]);
