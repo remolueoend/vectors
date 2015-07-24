@@ -52,13 +52,9 @@
     app.factory('versionedReader', [function(){
         return {
             v0: function(vStr){
-        		var ps = vStr.split(",");
-        		if(ps.length !== 3) throw "Invalid config";
-        		return {
-                    l: parseFloat(ps[0]),
-                    r: parseFloat(ps[1]) * 100,
-                    c: ps[2]
-                };
+                var cfg = this.v1(vStr);
+                cfg.r *= 100;
+                return cfg;
         	},
         	v1: function(vStr){
         		var ps = vStr.split(",");
