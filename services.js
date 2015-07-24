@@ -28,10 +28,31 @@ vectors.app.factory('drawSrv', [function(){
         this.canvas = canvas;
         this.context = canvas.getContext();
         this.context.lineWidth = 0.5;
+        this.points = [];
+        this.events = {};
     }
     DrawService.prototype = (function(){
         function draw(){
             animate.call(this);
+        }
+
+        function clear(){
+            this.points = [];
+        }
+
+        function on(event, handler){
+            this.events[event] = this.events[event] || [];
+            this.events[event].push(handler);
+        }
+
+        function trigger(event){
+            var handlers = this.events[event];
+            if(handlers instanceof Array){
+                var data = Array.prototype.slice.call(arguments, 1);
+                for(var i = 0; i < handlers.length; i++){
+                    handlers[i].apply(this, data);
+                }
+            }
         }
 
         function animate(){
@@ -43,7 +64,8 @@ vectors.app.factory('drawSrv', [function(){
         }
 
         function render(){
-            var vs = this.scope.vectors;
+            var vs = this.scope.vectors,
+                _this = this;
             if(vs.length)
             {
                 this.canvas.clear();
@@ -57,8 +79,10 @@ vectors.app.factory('drawSrv', [function(){
                     v.rotate();
                     startPoint = end;
                 }
-                this.scope.points.splice(0, 0, end);
-                drawPoints.call(this, this.scope.points, vs[i - 1].c);
+                this.points.splice(0, 0, end);
+                drawPoints.call(this, vs[i - 1].c);
+
+                //trigger.call(this, "drewPoints", this.points.length);
             }
         }
 
@@ -71,13 +95,14 @@ vectors.app.factory('drawSrv', [function(){
             ctx.stroke();
         }
 
-        function drawPoints(points, color){
-            if(points.length > 1){
+        function drawPoints(color){
+            var ps = this.points;
+            if(ps.length > 1){
                 var ctx = this.context;
                 ctx.beginPath();
-                ctx.moveTo(points[0].x, points[0].y);
-                for(var i = 1; i < points.length; i++){
-                    ctx.lineTo(points[i].x, points[i].y);
+                ctx.moveTo(ps[0].x, ps[0].y);
+                for(var i = 1; i < ps.length; i++){
+                    ctx.lineTo(ps[i].x, ps[i].y);
                 }
                 ctx.strokeStyle = color;
                 ctx.stroke();
@@ -85,7 +110,9 @@ vectors.app.factory('drawSrv', [function(){
         }
 
         return {
-            draw: draw
+            draw: draw,
+            clear: clear,
+            on: on
         }
     })();
 

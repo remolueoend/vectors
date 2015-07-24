@@ -77,3 +77,10 @@ div.config{
 canvas{
     margin-top: 60px;
 }
+
+footer{
+    position: fixed;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+}

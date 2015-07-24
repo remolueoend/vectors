@@ -2,12 +2,17 @@
  * Created by remo on 12/10/14.
  */
 
+/**
+* v1_10,9.9,blue;15,-10,blue;10,20,blue
+*/
+
 'use strict';
 
 vectors.app.controller('appCtrl', ['$scope', 'drawSrv', function($scope, drawSrv){
 
     var startAngle = -1 * (90 * (Math.PI / 180)),
-        img = document.getElementById("image");
+        img = document.getElementById("image"),
+        drawSrv;
 
     function resizeCanvas(canv){
         canv.elem.setAttribute("width", window.innerWidth);
@@ -38,7 +43,7 @@ vectors.app.controller('appCtrl', ['$scope', 'drawSrv', function($scope, drawSrv
         },
 
         rotate: function(){
-            this.a += this.r;
+            this.a += this.r / 100;
         },
 
         compare: function(v){
@@ -83,11 +88,11 @@ vectors.app.controller('appCtrl', ['$scope', 'drawSrv', function($scope, drawSrv
     };
 
     $scope.vectors = [];
-    $scope.points = [];
     $scope.config = "";
+    $scope.points = 0;
 
     $scope.addVector = function(){
-        $scope.vectors.push(new Vector(20, 0.01, "blue"));
+        $scope.vectors.push(new Vector(20, 1, "blue"));
     };
 
     $scope.deleteVector = function(index){
@@ -95,7 +100,7 @@ vectors.app.controller('appCtrl', ['$scope', 'drawSrv', function($scope, drawSrv
     };
 
     $scope.clearPoints = function(){
-        $scope.points = [];
+        drawSrv.clear();
         for(var i = 0; i < $scope.vectors.length; i++){
             $scope.vectors[i].a = startAngle
         }
@@ -147,6 +152,13 @@ vectors.app.controller('appCtrl', ['$scope', 'drawSrv', function($scope, drawSrv
     });
     resizeCanvas(canv);
 
-    new drawSrv($scope, canv).draw();
+    drawSrv = new drawSrv($scope, canv)
+    drawSrv.on("drewPoints", function(pointCount){
+        $scope.$apply(function(){
+            $scope.points = pointCount;
+        });
+    });
+
+    drawSrv.draw();
 
 }]);
