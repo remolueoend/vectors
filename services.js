@@ -7,7 +7,7 @@
     'use strict';
 
     app.factory('drawSrv', [function(){
-    
+
         var requestAnimFrame = (function(){
             return  window.requestAnimationFrame   ||
                 window.webkitRequestAnimationFrame ||
@@ -18,7 +18,7 @@
                     window.setTimeout(callback, 1000 / 60);
                 };
         })();
-    
+
         /**
          *
          * @param scope
@@ -26,6 +26,9 @@
          * @constructor
          */
         function DrawService(scope, canvas){
+            if(!(this instanceof DrawService())){
+                return new DrawService(scope, canvas);
+            }
             this.scope = scope;
             this.canvas = canvas;
             this.context = canvas.getContext();
@@ -37,16 +40,16 @@
             function draw(){
                 animate.call(this);
             }
-    
+
             function clear(){
                 this.points = [];
             }
-    
+
             function on(event, handler){
                 this.events[event] = this.events[event] || [];
                 this.events[event].push(handler);
             }
-    
+
             function trigger(event){
                 var handlers = this.events[event];
                 if(handlers instanceof Array){
@@ -56,7 +59,7 @@
                     }
                 }
             }
-    
+
             function animate(){
                 var self = this;
                 requestAnimFrame(function(){
@@ -64,7 +67,7 @@
                 });
                 render.call(self);
             }
-    
+
             function render(){
                 var vs = this.scope.vectors,
                     _this = this;
@@ -83,11 +86,11 @@
                     }
                     this.points.splice(0, 0, end);
                     drawPoints.call(this, vs[i - 1].c);
-    
+
                     //trigger.call(this, "drewPoints", this.points.length);
                 }
             }
-    
+
             function drawVector(start, end, color){
                 var ctx = this.context;
                 ctx.beginPath();
@@ -96,7 +99,7 @@
                 ctx.strokeStyle = color;
                 ctx.stroke();
             }
-    
+
             function drawPoints(color){
                 var ps = this.points;
                 if(ps.length > 1){
@@ -110,16 +113,16 @@
                     ctx.stroke();
                 }
             }
-    
+
             return {
                 draw: draw,
                 clear: clear,
                 on: on
             }
         })();
-    
+
         return DrawService;
-    
+
     }]);
 
 })(window.vectors.app);

@@ -13,7 +13,7 @@
     app.controller('appCtrl', ['$scope', 'drawSrv', 'config', function($scope, drawSrv, config){
         var startAngle = -1 * (90 * (Math.PI / 180)),
             img = document.getElementById("image"),
-            drawSrv;
+            drawer;
 
         function resizeCanvas(canv){
             canv.elem.setAttribute("width", window.innerWidth);
@@ -40,7 +40,7 @@
                 return {
                     x: startPoint.x + dx,
                     y: startPoint.y + dy
-                }
+                };
             },
 
             rotate: function(){
@@ -101,7 +101,7 @@
         };
 
         $scope.clearPoints = function(){
-            drawSrv.clear();
+            drawer.clear();
             for(var i = 0; i < $scope.vectors.length; i++){
                 $scope.vectors[i].a = startAngle
             }
@@ -153,14 +153,14 @@
         });
         resizeCanvas(canv);
 
-        drawSrv = new drawSrv($scope, canv)
-        drawSrv.on("drewPoints", function(pointCount){
+        drawer = drawSrv($scope, canv);
+        drawer.on("drewPoints", function(pointCount){
             $scope.$apply(function(){
                 $scope.points = pointCount;
             });
         });
 
-        drawSrv.draw();
+        drawer.draw();
 
     }]);
 

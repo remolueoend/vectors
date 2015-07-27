@@ -65,7 +65,7 @@ div[app-modal]{
     z-index: 1;
 }
 
-div[app-modal] > img#image{
+div[app-modal] > #image{
     width: 200px;
 }
 
