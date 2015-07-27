@@ -1,0 +1,28 @@
+{
+  "name": "vectors",
+  "version": "0.0.1",
+  "description": "Draws the sum of one or more rotating vectors",
+  "main": "./lib/app.js",
+  "dependencies": {
+    "angular": "^1.4.3",
+    "uglifyify": "^3.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/remolueoend/vectors.git"
+  },
+  "keywords": [
+    "vector",
+    "canvas"
+  ],
+  "author": "Remo Zumsteg <remo.zumsteg@outlook.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/remolueoend/vectors/issues"
+  },
+  "homepage": "https://github.com/remolueoend/vectors"
+}
